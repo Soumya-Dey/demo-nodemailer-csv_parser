@@ -45,15 +45,16 @@ app.post("/send", async (req, res) => {
   const to = toMail.join(", ");
 
   const transporter = nodemailer.createTransport({
-    service: "gmail",
+    host: "smtp.ethereal.email",
+    port: 587,
     auth: {
-      user: "soumyafordevelopment@gmail.com",
-      pass: "itsfordevgoogle12345",
+      user: "lew.yundt@ethereal.email",
+      pass: "aMJ5SgAb29GsrK2YrG",
     },
   });
 
   const info = await transporter.sendMail({
-    from: "soumyafordevelopment@gmail.com",
+    from: "lew.yundt@ethereal.email",
     to,
     subject: "Hello ✔ | Nodemailer Demo",
     html: "<h1>hello world!<h1>",
