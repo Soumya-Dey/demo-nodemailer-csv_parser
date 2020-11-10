@@ -26,18 +26,15 @@ app.get("/", (req, res) => res.send("nodemailer demo"));
 
 app.post("/upload", upload.single("data"), (req, res) => {
   const { path } = req.file;
+  const { separator = " " } = req.body;
   const results = [];
 
   fs.createReadStream(path)
-    .pipe(csv({ separator: "," }))
+    .pipe(csv({ separator }))
     .on("data", (data) => results.push(data))
     .on("end", () => {
-      console.log(results);
+      if (results.length === 0) return res.status(400).send("No data");
       res.json(results);
-      // [
-      //   { NAME: 'Daffy Duck', AGE: '24' },
-      //   { NAME: 'Bugs Bunny', AGE: '22' }
-      // ]
     });
 });
 
